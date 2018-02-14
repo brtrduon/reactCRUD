@@ -17,9 +17,16 @@ class PostsNew extends Component {
         );
     }
 
+    onSubmit(values) {
+        // this === component
+        console.log(values);
+    }
+
     render() {
+        const { handleSubmit } = this.props;
+        
         return (
-            <form>
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <Field
                     label='Title'
                     name='title'
@@ -35,6 +42,7 @@ class PostsNew extends Component {
                     name='content'
                     component={this.renderField}
                 />
+                <button type='submit' className='btn btn-primary'>Submit</button>
             </form>
             // so field functions similarly to 'input' in plain HTML?
         );
@@ -45,8 +53,8 @@ function validate(values) {
     const errors = {};
 
     // validate the inputs from 'values'
-    if (!values.title || values.title.length < 3) {
-        errors.title = 'Title needs to be at least 3 characters';
+    if (!values.title) {
+        errors.title = 'Enter a title';
     }
     if (!values.categories) {
         errors.title = 'Enter some categories';

@@ -15,8 +15,12 @@ export function fetchPosts() {
     };
 }
 
-export function createPost(values) {
-    const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values);
+export function createPost(values, callback) {
+    const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values)
+        .then(() => callback());
+    // the line above allows a delay to occur between post creation and redirect inside posts_new.js
+    // If there is no delay between the two actions, then there is a 50/50 chance that the post will appear on redirect
+    // This is because both actions are occurring at the exact same time. Thus, we need the delay to ensure that the post saves first, then redirect
 
     return {
         type: CREATE_POST,

@@ -4,9 +4,9 @@ import { fetchPost } from '../actions';
 
 class PostsShow extends Component {
     componentDidMount() {
-        const { id } = this.props.match.params.id;
+        const { id } = this.props.match.params;
         // the stuff above (to the right of the const declaration) is provided to us via react router
-        this.props.fetchPost();
+        this.props.fetchPost(id);
     }
 
     render() {
